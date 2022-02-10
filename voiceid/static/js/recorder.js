@@ -10,9 +10,11 @@ let source;
 let scriptProcessor;
 let chunks = [];
 
-function record(rec_button){
+function record(){
     navigator.mediaDevices.getUserMedia({audio:true}).then(
         function(stream){
+            let rec_button = document.getElementById('rokuon2');
+            let del_button = document.getElementById('delete-btn');
             function onAudioProcess(e) {  
                 var input = e.inputBuffer.getChannelData(0);
                 var bufferData = new Float32Array(bufferSize);
@@ -51,16 +53,45 @@ function record(rec_button){
                 send();
             }
             rec_button.onchange = function(){
+                if(document.getElementById('num').value.length != 9){
+                    alert('学籍番号を入力してください。');
+                    rec_button.checked = false;
+                    return;
+                };
                 if(rec_button.checked){
                     chunks.splice(0);
                     scriptProcessor.connect(context.destination);
                     setTimeout(onstop, record_ms);
                 } else {
                     onstop();
-                }
+                };
             };
 
-            document.getElementById("RET").onclick=send;
+            del_button.onclick = function () {
+                if(document.getElementById('num').value.length != 9){
+                    alert('学籍番号を入力してください。');
+                    rec_button.checked = false;
+                    return;
+                };
+                csrf_token = getCookie("csrftoken");
+                var data = new FormData();
+                data.append('name', document.getElementById('num').value);
+                $.ajax({
+                    type: "POST",
+                    url: "delete",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function(xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                        }
+                    },
+                    success: function (response) {
+                        console.log(response);
+                    }
+                });
+            };
 
             context = new AudioContext({sampleRate:sampleRate});
             scriptProcessor = context.createScriptProcessor(bufferSize, 1, 1);
@@ -75,7 +106,5 @@ function record(rec_button){
 }
 
 window.onload = function () {
-    var start = document.getElementById('rokuon2');
-    var stop = document.getElementById('stop');
-    record(start);
+    record();
 }
