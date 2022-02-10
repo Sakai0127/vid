@@ -5,6 +5,7 @@ from . import views
 urlpatterns = [
     path('record', views.record, name='record'),
     path('upload', views.upload, name='upload'),
+    path('delete', views.delete, name='delete'),
     path('analyzer', views.analyzer, name='analyzer'),
     path('analyze', views.analyze, name='analyze'),
     path('test-analyze', views.test_analyze, name='analyze'),

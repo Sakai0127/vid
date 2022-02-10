@@ -29,9 +29,9 @@ def upload(request:HttpRequest):
 def delete(request:HttpRequest):
     try:
         student = Student.objects.get(name=request.POST['name'])
+        VoiceData.objects.select_related().filter(student=student).delete()
     except Student.DoesNotExist:
         pass
-    VoiceData.objects.select_related().filter(student=student).delete()
     return render(request, 'voice_identification/recorder.html')
 
 @ensure_csrf_cookie
@@ -47,7 +47,6 @@ def analyze(request:HttpRequest):
         results.append((
             vv.student.name, float((embed*v).sum())
         ))
-    # results = sorted(results, key=lambda x: x[0])
     return JsonResponse({'result':dict(results)})
 
 def test_analyze(request:HttpRequest):
