@@ -13,6 +13,7 @@ let chunks = [];
 function record(){
     navigator.mediaDevices.getUserMedia({audio:true}).then(
         function(stream){
+            var sent = false;
             let rec_button = document.getElementById('rokuon2');
             let del_button = document.getElementById('delete-btn');
             function onAudioProcess(e) {  
@@ -28,7 +29,9 @@ function record(){
                 csrf_token = getCookie("csrftoken");
                 var data = new FormData();
                 var f_name = new Date().toLocaleString('js-JP').replaceAll(/:|\/|\s/g, '_') + '.wav';
-                data.append('audio', exportWAV(chunks, sampleRate), f_name);
+                var audio_data = exportWAV(chunks, sampleRate);
+                document.getElementsByTagName('audio')[0].src = URL.createObjectURL(audio_data);
+                data.append('audio', audio_data, f_name);
                 data.append('name', document.getElementById('num').value);
                 $.ajax({
                     type: "POST",
@@ -47,10 +50,15 @@ function record(){
                 });
             };
             function onstop() {
-                scriptProcessor.disconnect();
-                rec_button.checked = false;
-                console.log('stop');
-                send();
+                if(sent == false){
+                    scriptProcessor.disconnect();
+                    rec_button.checked = false;
+                    console.log('stop');
+                    console.log(chunks.length)
+                    if(chunks.length == 0) return;
+                    sent = true;
+                    send();
+                }
             }
             rec_button.onchange = function(){
                 if(document.getElementById('num').value.length != 9){
@@ -60,6 +68,7 @@ function record(){
                 };
                 if(rec_button.checked){
                     chunks.splice(0);
+                    sent = false;
                     scriptProcessor.connect(context.destination);
                     setTimeout(onstop, record_ms);
                 } else {
