@@ -1,3 +1,4 @@
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
@@ -46,9 +47,10 @@ class VoiceDataAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj:VoiceData, form, change):
         file = request.FILES['audio']
-        print(file, type(file))
-        embed = get_embedding(file.read())
+        embed, wav_file = get_embedding(file.read(), return_file=True)
+        wav_file = InMemoryUploadedFile(wav_file, None, file.name, file.content_type, wav_file.tell(), None)
         obj.data=pickle.dumps(embed)
+        obj.audio = wav_file
         super().save_model(request, obj, form, change)
         reload_vector(obj.student)
     
