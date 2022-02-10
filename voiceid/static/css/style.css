@@ -180,3 +180,7 @@ audio {
   display:flex;
   flex-flow: column;
 }
+
+#num {
+  font-family: 'Hachi Maru Pop', cursive;
+}
