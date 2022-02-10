@@ -47,7 +47,8 @@ function record(rec_button){
             function onstop() {
                 scriptProcessor.disconnect();
                 rec_button.checked = false;
-                console.log('stop')
+                console.log('stop');
+                send();
             }
             rec_button.onchange = function(){
                 if(rec_button.checked){
