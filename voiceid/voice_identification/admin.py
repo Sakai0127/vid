@@ -34,16 +34,19 @@ class VoiceDataAdmin(admin.ModelAdmin):
         )
 
     def vector(self, obj):
-        print(obj)
         v = obj.data
-        v = pickle.loads(v)[0]
-        html = '<div style="display: flex;flex-wrap: wrap;">%s</div>'
-        format = '<span style="width:3rem;padding:0 1px;text-align: center;">%.04f</span>'*512
-        html = html%(format%(tuple(v)))
-        return mark_safe(html)
+        try:
+            v = pickle.loads(v)[0]
+            html = '<div style="display: flex;flex-wrap: wrap;">%s</div>'
+            format = '<span style="width:3rem;padding:0 1px;text-align: center;">%.04f</span>'*512
+            html = html%(format%(tuple(v)))
+            return mark_safe(html)
+        except:
+            return mark_safe('-')
 
     def save_model(self, request, obj:VoiceData, form, change):
         file = request.FILES['audio']
+        print(file, type(file))
         embed = get_embedding(file.read())
         obj.data=pickle.dumps(embed)
         super().save_model(request, obj, form, change)
