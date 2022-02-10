@@ -31,6 +31,7 @@ def delete(request:HttpRequest):
     try:
         student = Student.objects.get(name=request.POST['name'])
         VoiceData.objects.select_related().filter(student=student).delete()
+        reload_vector(student)
     except Student.DoesNotExist:
         pass
     return HttpResponse('音声データを削除しました。')
