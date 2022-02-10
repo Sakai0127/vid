@@ -21,13 +21,11 @@
 </head>
 
 <body>
-	<h1>音声登録</h1>
+	<div class="rokuon3">
+		<h1>音声登録</h1>
+	</div>
 
 	<!-- テンキー -->
-	<?php
-	header("Content-Type:text/html;charset=utf-8");
-
-?>
 	<style type="text/css">
 		input.example {
 			font-size: 35pt;
@@ -54,80 +52,46 @@
 			font-family: 'Hachi Maru Pop', cursive;
 		}
 
-		/* td.td1{
+		td.td1{
 			font-size:	50pt;
 			align:		center;
 			height:		120;
 			width:		30%;
-		} */
+		} 
 	</style>
 	<script type="text/javascript">
-		<!--
-		var inputPlace = "";
+		var inputPlace = "num";
 
 		function onTenkey(num) {
-			//alert( num );
-
-			if (inputPlace == "") {
-				return;
-			}
-			//alert( num );
 			var obj;
-			if (num == "RET") {
-				if (inputPlace == "num") {
-					obj = document.getElementById("pass");
-				} else {
-					obj = document.getElementById("num");
-				}
-				obj.focus();
-				return;
-			}
 
-			//alert( inputPlace);
 			obj = document.getElementById(inputPlace);
-			//alert( obj.value );
 			if (num == "BS") {
 				var str = obj.value;
 				if (str.length > 0) {
 					obj.value = str.substr(0, str.length - 1);
 				}
-			} else {
+			} else if(obj.value.length < 9){
 				obj.value += num;
 			}
-
 		}
-
-		function onNum() {
-			//alert( inputPlace );
-			inputPlace = "num";
-		}
-
-		function onPass() {
-			//alert( inputPlace );
-			inputPlace = "pass";
-		}
-		// 
-		-->
 	</script>
 	<div class="youso">
 		<div class="key">
 			<form method="post" action="./testBigkey.php">
-
 				<table align="center" width="100%">
 					<tr>
 						<td class="bangou">学籍番号：</td>
-						<td><input type="text" name="id" class="example" onFocus="onNum()" id="num"></td>
+						<td><input type="text" name="id" class="example" id="num"></td>
 						<td></td>
 					</tr>
 				</table>
-
-
 			</form>
 
 			<table class="keybord" width="100%">
 				<tr>
-					<td class="td1"> <input type="button" value="   1   " class="tenKey" onclick="onTenkey('1')"></td>
-					<td class="td1"> <input type="button" value="   2   " class="tenKey" onclick="onTenkey('2')"></td>
+					<td class="td1"> <input type="button" value="1" class="tenKey" onclick="onTenkey('1')"></td>
+					<td class="td1"> <input type="button" value="2" class="tenKey" onclick="onTenkey('2')"></td>
 					<td class="td1"> <input type="button" value="3" class="tenKey" onclick="onTenkey('3')"></td>
 				</tr>
 				<tr>
@@ -141,10 +105,9 @@
 					<td class="td1"> <input type="button" value="9" class="tenKey" onclick="onTenkey('9')"></td>
 				</tr>
 				<tr>
-					<td class="td1"> <input type="button" value="BS" class="tenKey" onclick="onTenkey('BS')"></td>
+					<td class="td1"> <input type="button" value="　　削　除　　" class="tenKey" onclick="onTenkey('BS')"></td>
 					<td class="td1"> <input type="button" value="0" class="tenKey" onclick="onTenkey('0')"></td>
-					<td class="td1"> <input type="button" value="ENTER" class="tenKey" id="RET"
-							onclick="onTenkey('RET')"></td>
+					<td class="td1"> <input type="submit" value="　　検　索　　" class="tenKey" id="RET"></td>
 				</tr>
 			</table>
 		</div>
@@ -154,16 +117,14 @@
 				<input type="checkbox" id="rokuon2">
 				<span></span>
 			</label>
+			<label class="form">
+				<audio src="" controls></audio><br />
+				<button type="button" id="delete-btn" class="btn">全削除</button>
+			</label>
 		</div>
 	</div>
+	
 	<script src="{% static 'js/recorder.js' %}" type="module"></script>
-	<script>
-		$(function () {
-			$('.btn').on('click', function () { // クリックされた時
-				$(this).toggleClass('playback'); // クラスを 付与する or 外す
-			});
-		});
-	</script>
 </body>
 
 </html>
