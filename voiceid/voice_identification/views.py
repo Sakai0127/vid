@@ -1,3 +1,4 @@
+from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.shortcuts import render
 from django.views.decorators.csrf import ensure_csrf_cookie
 from django.http import HttpResponse, HttpRequest
@@ -14,16 +15,17 @@ def record(request:HttpRequest):
 
 def upload(request:HttpRequest):
     file = request.FILES['audio']
-    embed = get_embedding(file.read())
+    embed, wav_file = get_embedding(file.read(), return_file=True)
+    wav_file = InMemoryUploadedFile(wav_file, None, file.name, file.content_type, wav_file.tell(), None)
     try:
         student = Student.objects.get(name=request.POST['name'])
     except Student.DoesNotExist:
         student = Student(name=request.POST['name'])
         student.save()
-    voice_data = VoiceData(student=student, audio=request.FILES['audio'], data=pickle.dumps(embed))
+    voice_data = VoiceData(student=student, audio=wav_file, data=pickle.dumps(embed))
     voice_data.save()
     reload_vector(student)
-    return HttpResponse('Success')
+    return HttpResponse('音声を登録しました。')
 
 @ensure_csrf_cookie
 def delete(request:HttpRequest):

@@ -1,17 +1,23 @@
 import io
 import pickle
 
+import librosa
 import numpy as np
 import soundfile
 
 from .models import VoiceData, VoiceVector
 from .apps import pyannote_model as model
 
-def get_embedding(wav_bin):
+def get_embedding(wav_bin, return_file=False):
     wav, sr = soundfile.read(io.BytesIO(wav_bin))
+    wav, _ = librosa.effects.trim(wav)
     wav = np.expand_dims(wav, 1)
     feature = model.get_features(wav, sr).mean(0, keepdims=True)
     embed = feature / np.linalg.norm(feature, axis=1, keepdims=True)
+    if return_file:
+        wav_file = io.BytesIO()
+        soundfile.write(wav_file, wav[:,0], sr, subtype=soundfile.default_subtype('WAV'), format='WAV')
+        return embed, wav_file
     return embed
 
 def reload_vector(student):
