@@ -1,0 +1,160 @@
+body {
+    background-color: lightgoldenrodyellow;
+}
+
+body h1 {
+  font-size: 40px;
+  font-family: 'Hachi Maru Pop', cursive;
+}
+
+.youso {
+  margin: 0;
+  padding: 0;
+}
+
+.key {
+  float: left;
+  width: 50%;
+}
+
+.rokuon {
+  float: right;
+  width: 50%;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-flow: column;
+  margin-top: 80px;
+}
+
+.button1 {
+  margin: 10px;
+
+}
+
+.button2 {
+  margin: 10px;
+}
+.button1:active {
+  position: relative;
+  top: 15px;
+  opacity: 0.6;
+}
+
+.button2:active {
+  position: relative;
+  top: 15px;
+  opacity: 0.6;
+}
+
+table.keybord {
+  height: 100%;
+}
+
+
+
+/* 再生ボタン */
+.video_play {
+  display: inline-block;
+  position: relative;
+  width: 1em;
+  height: 1em;
+  border: 0.05em solid currentColor;
+  border-radius: 50%;
+  color: #000;
+  font-size: 200px;
+}
+.video_play::before {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translateY(-50%);
+  width: 0px;
+  height: 0px;
+  border: 0.3em solid transparent;
+  border-left: 0.5em solid currentColor;
+  box-sizing: border-box;
+  content: "";
+}
+
+/* 停止ボタン */
+.video_pause {
+  display: inline-block;
+  position: relative;
+  width: 1em;
+  height: 1em;
+  border: 0.05em solid currentColor;
+  border-radius: 50%;
+  color: #000;
+  font-size: 200px;
+}
+.video_pause::before,
+.video_pause::after {
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 0.1em;
+  height: 0.5em;
+  box-sizing: border-box;
+  background-color: currentColor;
+  content: "";
+}
+.video_pause::before {
+  left: 40%;
+}
+.video_pause::after {
+  left: 60%;
+}
+
+.tenKey {
+  border-radius: 1em;
+  border-style: dashed;
+}
+
+/* 切り替え */
+.video_play_pause {
+  display: inline-block;
+  position: relative;
+  width: 1em;
+  height: 1em;
+  border: 0.05em solid currentColor;
+  border-radius: 50%;
+  color: #000;
+  font-size: 200px;
+}
+
+.video_play_pause > input {
+  display: none;
+}
+
+.video_play_pause > input:not(:checked) + span::before {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translateY(-50%);
+  width: 0px;
+  height: 0px;
+  border: 0.3em solid transparent;
+  border-left: 0.5em solid currentColor;
+  box-sizing: border-box;
+  content: "";
+}
+
+.video_play_pause > input:checked + span::before,
+.video_play_pause > input:checked + span::after {
+  position: absolute;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 0.1em;
+  height: 0.5em;
+  box-sizing: border-box;
+  background-color: currentColor;
+  content: "";
+}
+.video_play_pause > input:checked + span::before {
+  left: 40%;
+}
+.video_play_pause > input:checked + span::after {
+  left: 60%;
+}
