@@ -27,14 +27,13 @@ def upload(request:HttpRequest):
     reload_vector(student)
     return HttpResponse('音声を登録しました。')
 
-@ensure_csrf_cookie
 def delete(request:HttpRequest):
     try:
         student = Student.objects.get(name=request.POST['name'])
         VoiceData.objects.select_related().filter(student=student).delete()
     except Student.DoesNotExist:
         pass
-    return render(request, 'voice_identification/recorder.html')
+    return HttpResponse('音声データを削除しました。')
 
 @ensure_csrf_cookie
 def analyzer(request:HttpRequest):
