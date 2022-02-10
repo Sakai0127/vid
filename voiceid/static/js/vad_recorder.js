@@ -57,17 +57,15 @@ window.onload = function () {
             //認識が終了したときのイベント
             recognizer.onresult = function(event){
                 // 結果表示
-                var results = event.results;
-                var result = $('<div>', {text: `${results[0][0].transcript}:`});
                 var blob = exportWAV(chunks, sampleRate);
                 wavesurfer.loadBlob(blob);
+
+                var results = event.results;
+                var result = $('<div>', {text: `${results[0][0].transcript}:`});
                 $('<audio>', {
                     src: URL.createObjectURL(blob),
                     controls : true
                 }).appendTo(result);
-                var canvas = $('<canvas>', {id:`canvas${n}`});
-                n++;
-                canvas.appendTo(result);
                 result.appendTo('#result-area');
 
                 csrf_token = getCookie("csrftoken");
