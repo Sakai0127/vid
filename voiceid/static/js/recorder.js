@@ -45,24 +45,25 @@ function record(){
                         }
                     },
                     success: function (response) {
-                        console.log(response);
+                        $('#message').text(response);
                     }
                 });
             };
             function onstop() {
                 if(sent == false){
+                    sent = true;
                     scriptProcessor.disconnect();
                     rec_button.checked = false;
                     console.log('stop');
                     console.log(chunks.length)
                     if(chunks.length == 0) return;
-                    sent = true;
                     send();
                 }
             }
             rec_button.onchange = function(){
                 if(document.getElementById('num').value.length != 9){
-                    alert('学籍番号を入力してください。');
+                    // alert('学籍番号を入力してください。');
+                    $('#message').text('学籍番号を入力してください。');
                     rec_button.checked = false;
                     return;
                 };
@@ -78,7 +79,8 @@ function record(){
 
             del_button.onclick = function () {
                 if(document.getElementById('num').value.length != 9){
-                    alert('学籍番号を入力してください。');
+                    // alert('学籍番号を入力してください。');
+                    $('#message').text('学籍番号を入力してください。');
                     rec_button.checked = false;
                     return;
                 };
@@ -97,7 +99,7 @@ function record(){
                         }
                     },
                     success: function (response) {
-                        console.log(response);
+                        $('#message').text(response);
                     }
                 });
             };
