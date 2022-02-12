@@ -45,7 +45,9 @@ function record(){
                         }
                     },
                     success: function (response) {
+                        $('#message').show();
                         $('#message').text(response);
+                        $('#message').fadeOut(2000);
                     }
                 });
             };
@@ -99,7 +101,9 @@ function record(){
                         }
                     },
                     success: function (response) {
+                        $('#message').show();
                         $('#message').text(response);
+                        $('#message').fadeOut(2000);
                     }
                 });
             };
