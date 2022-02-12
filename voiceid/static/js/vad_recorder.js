@@ -14,11 +14,6 @@ let recognizer;
 let n = 1;
 
 window.onload = function () {
-    var wavesurfer = WaveSurfer.create({
-        container: '#waveform',
-        waveColor: 'violet',
-        progressColor: 'purple'
-    });
     navigator.mediaDevices.getUserMedia({audio:true}).then(
         function(stream){
             function onAudioProcess(e) {  
@@ -58,19 +53,24 @@ window.onload = function () {
             recognizer.onresult = function(event){
                 // 結果表示
                 var blob = exportWAV(chunks, sampleRate);
-                wavesurfer.loadBlob(blob);
 
                 var results = event.results;
-                var result = $('<div>', {text: `${results[0][0].transcript}:`});
-                $('<audio>', {
-                    src: URL.createObjectURL(blob),
-                    controls : true
-                }).appendTo(result);
-                result.appendTo('#result-area');
+                // var result = $('<div>', {text: `${results[0][0].transcript}:`});
+                // $('<audio>', {
+                //     src: URL.createObjectURL(blob),
+                //     controls : true
+                // }).appendTo(result);
+                // result.appendTo('#result-area');
+                var result = $('<tr>', {id:`result${n++}`});
+                $('<td>', {text:results[0][0].transcript}).appendTo(result);
+                var audio = $('<td>');
+                $('<audio>', {src:URL.createObjectURL(blob), controls:true}).appendTo(audio);
+                audio.appendTo(result);
+                result.appendTo('#result');
 
                 csrf_token = getCookie("csrftoken");
                 var data = new FormData();
-                data.append('audio', exportWAV(chunks, sampleRate));
+                data.append('audio', blob);
                 chunks.splice(0);
                 $.ajax({
                     type: "POST",
@@ -84,7 +84,15 @@ window.onload = function () {
                         }
                     },
                     success: function (response) {
-                        console.log(response['result']);
+                        // console.log(response);
+                        $('<td>').append($('<p>', {text:`${response.max_id}`}))
+                                 .append($('<p>', {text:`${response.max_score}`}))
+                                 .appendTo(`#result${n-1}`);
+                        if (response.result === null){
+                            $(`#result${n-1}`).css('background-color', 'tomato');
+                        } else {
+                            $(`#result${n-1}`).css('background-color', 'aquamarine');
+                        }
                     }
                 });
             };

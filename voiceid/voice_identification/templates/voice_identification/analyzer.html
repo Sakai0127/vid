@@ -5,18 +5,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/wavesurfer.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js" integrity="sha512-TW5s0IT/IppJtu76UbysrBH9Hy/5X41OTAbQuffZFU6lQ1rdcLHzpU5BzVvr/YFykoiMYZVWlr/PX1mDcfM9Qg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
     <script src="{% static 'js/vad_recorder.js' %}" type="module"></script>
     <title>Document</title>
 </head>
 <body>
     <div id="state">停止中</div>
-    <div id="recognizedText"></div>
+    <!-- <div id="recognizedText"></div>
     <div id="waveform"></div>
-    <div id="result-area">
-
-    </div>
+    <div id="result-area"></div> -->
+    <table id="result">
+        <tr>
+            <th style="width: 5rem;">テキスト</th>
+            <th>音声</th>
+            <th style="width: 5rem;">認識結果</th>
+        </tr>
+    </table>
+    <style>
+        table, td, th {
+            border: solid 1px #000;
+            text-align: center;
+        }
+    </style>
 </body>
 </html>

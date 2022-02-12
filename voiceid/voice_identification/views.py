@@ -9,6 +9,8 @@ import pickle
 from .models import Student, VoiceData, VoiceVector
 from .process_data import get_embedding, reload_vector
 
+THRESHOLD = 0.55
+
 @ensure_csrf_cookie
 def record(request:HttpRequest):
     return render(request, 'voice_identification/recorder.html')
@@ -46,13 +48,23 @@ def analyzer(request:HttpRequest):
 def analyze(request:HttpRequest):
     file = request.FILES['audio']
     embed = get_embedding(file.read())
-    results = []
+    scores = []
     for vv in VoiceVector.objects.all().order_by('student__name'):
         v = pickle.loads(vv.vector)
-        results.append((
+        scores.append((
             vv.student.name, float((embed*v).sum())
         ))
-    return JsonResponse({'result':dict(results)})
+    max_score = max(scores, key=lambda x : x[1])
+    if max_score[1] > THRESHOLD:
+        result = max_score[0]
+    else:
+        result = None
+    return JsonResponse({
+        'result':result ,
+        'max_id':max_score[0],
+        'max_score':max_score[1],
+        'scores':dict(scores)
+        })
 
 def test_analyze(request:HttpRequest):
     return render(request, 'voice_identification/test_analyze.html')
