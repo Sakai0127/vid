@@ -25,16 +25,19 @@ def upload(request:HttpRequest):
     voice_data = VoiceData(student=student, audio=wav_file, data=pickle.dumps(embed))
     voice_data.save()
     reload_vector(student)
-    return HttpResponse('音声を登録しました。')
+    return HttpResponse('%sの音声を登録しました。'%(request.POST['name']))
 
 def delete(request:HttpRequest):
+    n = 0
     try:
         student = Student.objects.get(name=request.POST['name'])
-        VoiceData.objects.select_related().filter(student=student).delete()
+        voice_data = VoiceData.objects.select_related().filter(student=student)
+        n = len(voice_data)
+        voice_data.delete()
         reload_vector(student)
     except Student.DoesNotExist:
         pass
-    return HttpResponse('音声データを削除しました。')
+    return HttpResponse('%sの音声データを削除しました。(%d件)'%(request.POST['name'], n))
 
 @ensure_csrf_cookie
 def analyzer(request:HttpRequest):
