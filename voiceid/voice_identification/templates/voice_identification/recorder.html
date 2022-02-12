@@ -21,44 +21,6 @@
 </head>
 
 <body>
-	<div class="rokuon3">
-		<h1>音声登録</h1>
-	</div>
-
-	<!-- テンキー -->
-	<style type="text/css">
-		input.example {
-			font-size: 35pt;
-			height: 100%;
-			width: 100%;
-		}
-
-		input.tenKey {
-			font-size: 25pt;
-			height: 80px;
-			width: 100%;
-			font-family: 'Hachi Maru Pop', cursive;
-		}
-
-		input.tenKey:active {
-			position: relative;
-			top: 3px;
-			background-color: silver;
-		}
-
-		.bangou {
-			font-size: 30px;
-			width: 160px;
-			font-family: 'Hachi Maru Pop', cursive;
-		}
-
-		td.td1{
-			font-size:	50pt;
-			align:		center;
-			height:		120;
-			width:		30%;
-		} 
-	</style>
 	<script type="text/javascript">
 		var inputPlace = "num";
 
@@ -76,51 +38,57 @@
 			}
 		}
 	</script>
-	<div class="youso">
-		<div class="key">
-			<form method="post" action="./testBigkey.php">
-				<table align="center" width="100%">
+	<div style="width: 90%; margin: 0 5% 0 5%;">
+		<h1>音声登録</h1>
+		<div class="youso">
+			<div class="key">
+				<form method="post" action="./testBigkey.php">
+					<table width="100%">
+						<tr>
+							<td class="bangou">学籍番号：</td>
+							<td><input type="text" name="id" class="example" id="num"></td>
+							<td></td>
+						</tr>
+					</table>
+				</form>
+	
+				<table class="keybord" width="100%">
 					<tr>
-						<td class="bangou">学籍番号：</td>
-						<td><input type="text" name="id" class="example" id="num"></td>
-						<td></td>
+						<td class="td1"> <input type="button" value="1" class="tenKey" onclick="onTenkey('1')"></td>
+						<td class="td1"> <input type="button" value="2" class="tenKey" onclick="onTenkey('2')"></td>
+						<td class="td1"> <input type="button" value="3" class="tenKey" onclick="onTenkey('3')"></td>
+					</tr>
+					<tr>
+						<td class="td1"> <input type="button" value="4" class="tenKey" onclick="onTenkey('4')"></td>
+						<td class="td1"> <input type="button" value="5" class="tenKey" onclick="onTenkey('5')"></td>
+						<td class="td1"> <input type="button" value="6" class="tenKey" onclick="onTenkey('6')"></td>
+					</tr>
+					<tr>
+						<td class="td1"> <input type="button" value="7" class="tenKey" onclick="onTenkey('7')"></td>
+						<td class="td1"> <input type="button" value="8" class="tenKey" onclick="onTenkey('8')"></td>
+						<td class="td1"> <input type="button" value="9" class="tenKey" onclick="onTenkey('9')"></td>
+					</tr>
+					<tr>
+						<td class="td1"> <input type="button" value="　　削　除　　" class="tenKey" onclick="onTenkey('BS')"></td>
+						<td class="td1"> <input type="button" value="0" class="tenKey" onclick="onTenkey('0')"></td>
+						<td class="td1"> <input type="submit" value="　　検　索　　" class="tenKey" id="RET"></td>
 					</tr>
 				</table>
-			</form>
-
-			<table class="keybord" width="100%">
-				<tr>
-					<td class="td1"> <input type="button" value="1" class="tenKey" onclick="onTenkey('1')"></td>
-					<td class="td1"> <input type="button" value="2" class="tenKey" onclick="onTenkey('2')"></td>
-					<td class="td1"> <input type="button" value="3" class="tenKey" onclick="onTenkey('3')"></td>
-				</tr>
-				<tr>
-					<td class="td1"> <input type="button" value="4" class="tenKey" onclick="onTenkey('4')"></td>
-					<td class="td1"> <input type="button" value="5" class="tenKey" onclick="onTenkey('5')"></td>
-					<td class="td1"> <input type="button" value="6" class="tenKey" onclick="onTenkey('6')"></td>
-				</tr>
-				<tr>
-					<td class="td1"> <input type="button" value="7" class="tenKey" onclick="onTenkey('7')"></td>
-					<td class="td1"> <input type="button" value="8" class="tenKey" onclick="onTenkey('8')"></td>
-					<td class="td1"> <input type="button" value="9" class="tenKey" onclick="onTenkey('9')"></td>
-				</tr>
-				<tr>
-					<td class="td1"> <input type="button" value="　　削　除　　" class="tenKey" onclick="onTenkey('BS')"></td>
-					<td class="td1"> <input type="button" value="0" class="tenKey" onclick="onTenkey('0')"></td>
-					<td class="td1"> <input type="submit" value="　　検　索　　" class="tenKey" id="RET"></td>
-				</tr>
-			</table>
-		</div>
-		<!-- テンキーここまで -->
-		<div class="rokuon">
-			<label class="video_play_pause">
-				<input type="checkbox" id="rokuon2">
-				<span></span>
-			</label>
-			<label class="form">
-				<audio src="" controls></audio><br />
-				<button type="button" id="delete-btn" class="btn">全削除</button>
-			</label>
+			</div>
+			<!-- テンキーここまで -->
+			<div>
+				<div class="rokuon">
+					<label class="video_play_pause">
+						<input type="checkbox" id="rokuon2">
+						<span></span>
+					</label>
+					<label class="form">
+						<audio src="" controls></audio><br />
+						<button type="button" id="delete-btn" class="btn">全削除</button>
+					</label>
+				</div>
+				<div id="message"></div>
+			</div>
 		</div>
 	</div>
 	
