@@ -19,9 +19,7 @@ window.onload = function () {
             function onAudioProcess(e) {  
                 var input = e.inputBuffer.getChannelData(0);
                 var bufferData = new Float32Array(bufferSize);
-                for (var i = 0; i < bufferSize; i++) {
-                    bufferData.set(input);
-                };
+                bufferData.set(input);
                 chunks.push(bufferData);
             };
             context = new AudioContext({sampleRate:sampleRate});
