@@ -105,7 +105,7 @@ def vad_collector(sample_rate, frame_duration_ms, padding_duration_ms, vad, fram
     if voiced_frames:
         yield b''.join([f.bytes for f in voiced_frames])
 
-def get_embedding(wav_bin, return_file=False):
+def get_embedding(wav_bin, return_file=False, normalize=False):
     vad = webrtcvad.Vad(0)
     wav = wave.open(io.BytesIO(wav_bin), 'rb')
     sr = wav.getframerate()
@@ -114,7 +114,8 @@ def get_embedding(wav_bin, return_file=False):
     wav = np.array(array('h', frame)) / (2**(8*wav.getsampwidth())/2)
     wav = np.expand_dims(wav, 1)
     embed = model.get_features(wav, sr).mean(0, keepdims=True)
-    # embed = embed / np.linalg.norm(embed, axis=1, keepdims=True)
+    if normalize:
+        embed = embed / np.linalg.norm(embed, axis=1, keepdims=True)
     if return_file:
         wav_file = io.BytesIO()
         soundfile.write(wav_file, wav[:,0], sr, subtype=soundfile.default_subtype('WAV'), format='WAV')
