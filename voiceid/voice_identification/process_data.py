@@ -8,12 +8,13 @@ import soundfile
 from .models import VoiceData, VoiceVector
 from .apps import pyannote_model as model
 
-def get_embedding(wav_bin, return_file=False):
+def get_embedding(wav_bin, return_file=False, normalize=False):
     wav, sr = soundfile.read(io.BytesIO(wav_bin))
     wav, _ = librosa.effects.trim(wav)
     wav = np.expand_dims(wav, 1)
     embed = model.get_features(wav, sr).mean(0, keepdims=True)
-    # embed = embed / np.linalg.norm(embed, axis=1, keepdims=True)
+    if normalize:
+        embed = embed / np.linalg.norm(embed, axis=1, keepdims=True)
     if return_file:
         wav_file = io.BytesIO()
         soundfile.write(wav_file, wav[:,0], sr, subtype=soundfile.default_subtype('WAV'), format='WAV')
