@@ -56,17 +56,9 @@ table.keybord {
 
 input.example {
   font-size: 35pt;
-  /* height: 100%;
-  width: 100%; */
 }
 
 /* テンキー */
-/* input.tenKey {
-  font-size: 25pt;
-  height: 80px;
-  width: 100%;
-  font-family: 'Hachi Maru Pop', cursive;
-} */
 
 input.tenKey:active {
   position: relative;
@@ -174,4 +166,35 @@ audio {
 
   background-color: #FFF;
   width: 59%;
+}
+
+.arrow_box {
+  position: relative;
+  background: #fff;
+  border: 4px solid #333;
+  padding:2em 0.5em;
+  border-radius:30px;
+  /* margin:2em; */
+}
+.arrow_box:after, .arrow_box:before {
+  left: 100%;
+  top: 50%;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+}
+.arrow_box:after {
+  border-color: rgba(255, 255, 255, 0);
+  border-left-color: #fff;
+  border-width: 10px;
+  /* margin-top: -10px; */
+}
+.arrow_box:before {
+  border-color: rgba(51, 51, 51, 0);
+  border-left-color: #333;
+  border-width: 16px;
+  margin-top: -5.5px;
 }
