@@ -56,9 +56,17 @@ table.keybord {
 
 input.example {
   font-size: 35pt;
+  /* height: 100%;
+  width: 100%; */
 }
 
 /* テンキー */
+/* input.tenKey {
+  font-size: 25pt;
+  height: 80px;
+  width: 100%;
+  font-family: 'Hachi Maru Pop', cursive;
+} */
 
 input.tenKey:active {
   position: relative;
@@ -98,30 +106,42 @@ td.td1{
 .video_play_pause > input:not(:checked) + span::before {
   position: absolute;
   top: 50%;
-  left: 30%;
+  left: 18%;
   transform: translateY(-50%);
   width: 0px;
   height: 0px;
-  border: 0.3em solid transparent;
-
-  border-left: 0.5em solid currentColor;
+  border: 0.3em solid red;
+  border-radius: 50%;
+  /* border-left: 0.5em solid currentColor; */
   box-sizing: border-box;
   content: "";
 }
 
-.video_play_pause > input:checked + span::before,
-.video_play_pause > input:checked + span::after {
+.video_play_pause > input:checked + span::before {
   position: absolute;
   top: 50%;
   transform: translateX(-50%) translateY(-50%);
-  width: 0.3em;
+  width: 0.5em;
   height: 0.5em;
   box-sizing: border-box;
   background-color: red;
   content: "";
+
+  animation: flash 1s linear infinite;
 }
+
+@keyframes flash {
+  0%,100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
+}
+
 .video_play_pause > input:checked + span::before {
-  left: 40%;
+  left: 50%;
 }
 .video_play_pause > input:checked + span::after {
   left: 60%;
