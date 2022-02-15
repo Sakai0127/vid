@@ -9,6 +9,11 @@ let context;
 let source;
 let scriptProcessor;
 let chunks = [];
+let text = '学籍番号を入力してから<br>録音マークをタッチしてね！';
+
+function setText(){
+    $('#message').html(text);
+}
 
 function record(){
     navigator.mediaDevices.getUserMedia({audio:true}).then(
@@ -47,7 +52,8 @@ function record(){
                     success: function (response) {
                         $('#message').show();
                         $('#message').text(response);
-                        $('#message').fadeOut(2000);
+                        setTimeout(setText, 2000);
+                        // $('#message').fadeOut(2000);
                     }
                 });
             };
@@ -66,8 +72,9 @@ function record(){
                 if(document.getElementById('num').value.length != 9){
                     // alert('学籍番号を入力してください。');
                     $('#message').show();
-                    $('#message').text('学籍番号を入力してください。');
-                    $('#message').fadeOut(2000);
+                    $('#message').html('学籍番号を<br>入力してください。');
+                    setTimeout(setText, 2000);
+                    // $('#message').fadeOut(2000);
                     rec_button.checked = false;
                     return;
                 };
@@ -85,8 +92,9 @@ function record(){
                 if(document.getElementById('num').value.length != 9){
                     // alert('学籍番号を入力してください。');
                     $('#message').show();
-                    $('#message').text('学籍番号を入力してください。');
-                    $('#message').fadeOut(2000);
+                    $('#message').html('学籍番号を<br>入力してください。');
+                    setTimeout(setText, 2000);
+                    // $('#message').fadeOut(2000);
                     rec_button.checked = false;
                     return;
                 };
@@ -107,7 +115,8 @@ function record(){
                     success: function (response) {
                         $('#message').show();
                         $('#message').text(response);
-                        $('#message').fadeOut(2000);
+                        setTimeout(setText, 2000);
+                        // $('#message').fadeOut(2000);
                     }
                 });
             };
