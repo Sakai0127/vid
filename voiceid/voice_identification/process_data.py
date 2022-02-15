@@ -113,8 +113,8 @@ def get_embedding(wav_bin, return_file=False):
     frame = list(vad_collector(sr, 30, 300, vad, frames))[0]
     wav = np.array(array('h', frame)) / (2**(8*wav.getsampwidth())/2)
     wav = np.expand_dims(wav, 1)
-    feature = model.get_features(wav, sr).mean(0, keepdims=True)
-    embed = feature / np.linalg.norm(feature, axis=1, keepdims=True)
+    embed = model.get_features(wav, sr).mean(0, keepdims=True)
+    # embed = embed / np.linalg.norm(embed, axis=1, keepdims=True)
     if return_file:
         wav_file = io.BytesIO()
         soundfile.write(wav_file, wav[:,0], sr, subtype=soundfile.default_subtype('WAV'), format='WAV')
