@@ -65,7 +65,9 @@ function record(){
             rec_button.onchange = function(){
                 if(document.getElementById('num').value.length != 9){
                     // alert('学籍番号を入力してください。');
+                    $('#message').show();
                     $('#message').text('学籍番号を入力してください。');
+                    $('#message').fadeOut(2000);
                     rec_button.checked = false;
                     return;
                 };
@@ -82,7 +84,9 @@ function record(){
             del_button.onclick = function () {
                 if(document.getElementById('num').value.length != 9){
                     // alert('学籍番号を入力してください。');
+                    $('#message').show();
                     $('#message').text('学籍番号を入力してください。');
+                    $('#message').fadeOut(2000);
                     rec_button.checked = false;
                     return;
                 };

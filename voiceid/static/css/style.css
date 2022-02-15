@@ -1,17 +1,28 @@
 body {
-    background-color: lightgoldenrodyellow;
+  overflow: hidden;
+  background-color: lightgoldenrodyellow;
+  background-image:conic-gradient(from -90deg at bottom center, papayawhip, peachpuff);
+  font-family: 'Hachi Maru Pop', cursive;
 }
 
 body h1 {
-  font-size: 40px;
-  font-family: 'Hachi Maru Pop', cursive;
+  text-align: center;
+  font-size: 50px;
+  /* font-family: 'Hachi Maru Pop', cursive; */
+  color:#000000;
+  margin: 15px;
+}
+
+h2 {
+  text-align: center;
+  font-size: 2rem;
 }
 
 .youso {
   margin: 0;
   padding: 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 .key {
@@ -25,52 +36,41 @@ body h1 {
   align-items: center;
 }
 
-.button1 {
-  margin: 10px;
-}
-
-.button2 {
-  margin: 10px;
-}
-.button1:active {
-  position: relative;
-  top: 15px;
-  opacity: 0.6;
-}
-
-.button2:active {
-  position: relative;
-  top: 15px;
-  opacity: 0.6;
-}
-
 table.keybord {
   height: 100%;
 }
 
 .tenKey {
-  border-radius: 1em;
-  border-style: dashed;
-}
-
-input.example {
-  font-size: 35pt;
-  height: 100%;
-  width: 100%;
-}
-
-/* テンキー */
-input.tenKey {
   font-size: 25pt;
   height: 80px;
   width: 100%;
   font-family: 'Hachi Maru Pop', cursive;
+
+  border-radius: 1em;
+  border: solid 2px lightblue;
+  border-bottom: outset 13px lightblue;
+  border-right: outset 5px lightblue;
+  background:conic-gradient(from -90deg at 50% 105%, white, lightgoldenrodyellow);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px
 }
+
+input.example {
+  font-size: 35pt;
+  /* height: 100%;
+  width: 100%; */
+}
+
+/* テンキー */
+/* input.tenKey {
+  font-size: 25pt;
+  height: 80px;
+  width: 100%;
+  font-family: 'Hachi Maru Pop', cursive;
+} */
 
 input.tenKey:active {
   position: relative;
-  top: 3px;
-  background-color: silver;
+  top: 5px;
 }
 
 .bangou {
@@ -140,9 +140,20 @@ td.td1{
   font-size: 50px;
   border-color: silver;
   border-radius: 1em;
-  color: red;
+  color: white;
+  font-family: 'Hachi Maru Pop', cursive;
+  padding-bottom: 0.3em;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  background-image:conic-gradient(from -135deg at -10% center, #ffa500, #ff7715, #ff522a, #ff3f47, #ff5482, #ff69b4);
 }
 
+input[type="text"] {
+  border-radius: 1em;
+  padding: 0.2em;
+  font-family: 'Hachi Maru Pop', cursive;
+  background-image:conic-gradient(at 0% 0%, snow, white);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
 audio {
   width: 350px;
 }
@@ -160,4 +171,7 @@ audio {
   margin-top: 3rem;
   text-align: center;
   font-size: x-large;
+
+  background-color: #FFF;
+  width: 59%;
 }
