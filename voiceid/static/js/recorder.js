@@ -15,13 +15,12 @@ function setText(){
     $('#message').html(text);
 }
 
-function record(){
+window.onload = function () {
     navigator.mediaDevices.getUserMedia({audio:true}).then(
         function(stream){
-            var sent = false;
             let rec_button = document.getElementById('rokuon2');
             let del_button = document.getElementById('delete-btn');
-            function onAudioProcess(e) {  
+            function onAudioProcess(e) {
                 var input = e.inputBuffer.getChannelData(0);
                 var bufferData = new Float32Array(bufferSize);
                 bufferData.set(input);
@@ -56,15 +55,13 @@ function record(){
                 });
             };
             function onstop() {
-                if(sent == false){
-                    sent = true;
-                    scriptProcessor.disconnect();
-                    rec_button.checked = false;
-                    console.log('stop');
-                    console.log(chunks.length)
-                    if(chunks.length == 0) return;
-                    send();
-                }
+                scriptProcessor.disconnect();
+                rec_button.checked = false;
+                rec_button.disabled = false;
+                // console.log('stop');
+                // console.log(chunks.length);
+                if(chunks.length == 0) return;
+                send();
             }
             rec_button.onchange = function(){
                 if(document.getElementById('num').value.length != 9){
@@ -77,11 +74,9 @@ function record(){
                 };
                 if(rec_button.checked){
                     chunks.splice(0);
-                    sent = false;
                     scriptProcessor.connect(context.destination);
+                    rec_button.disabled = true;
                     setTimeout(onstop, record_ms);
-                } else {
-                    onstop();
                 };
             };
 
@@ -113,7 +108,6 @@ function record(){
                         $('#message').show();
                         $('#message').text(response);
                         setTimeout(setText, 2000);
-                        // $('#message').fadeOut(2000);
                     }
                 });
             };
@@ -127,9 +121,5 @@ function record(){
         function(){
             console.log('Error');
         }
-    )
-}
-
-window.onload = function () {
-    record();
+    );
 }
