@@ -24,9 +24,7 @@ function record(){
             function onAudioProcess(e) {  
                 var input = e.inputBuffer.getChannelData(0);
                 var bufferData = new Float32Array(bufferSize);
-                for (var i = 0; i < bufferSize; i++) {
-                    bufferData.set(input);
-                }
+                bufferData.set(input);
                 chunks.push(bufferData);
             };
 
@@ -70,7 +68,6 @@ function record(){
             }
             rec_button.onchange = function(){
                 if(document.getElementById('num').value.length != 9){
-                    // alert('学籍番号を入力してください。');
                     $('#message').show();
                     $('#message').html('学籍番号を<br>入力してください。');
                     setTimeout(setText, 2000);
