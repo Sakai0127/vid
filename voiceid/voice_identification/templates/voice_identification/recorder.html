@@ -56,7 +56,6 @@
 						<input value="7" class="tenKey" onclick="onTenkey('7')" type="button">
 						<input value="8" class="tenKey" onclick="onTenkey('8')" type="button">
 						<input value="9" class="tenKey" onclick="onTenkey('9')" type="button">
-						<!-- <button class="tenKey" onclick="onTenkey('AC')">全削除</button> -->
 						<input type="reset" style="font-size: 20pt;" value="全て消す" class="tenKey">
 						<input value="0" class="tenKey" onclick="onTenkey('0')" type="button">
 						<input value="１文字消す" style="font-size: 20pt;" class="tenKey" onclick="onTenkey('BS')" type="button">
@@ -78,7 +77,6 @@
 
 					button {
 						height: 80px;
-						/* margin: 10px; */
 					}
 
 					.main {
@@ -106,7 +104,9 @@
 					学籍番号を入力してから<br />
 					録音マークをタッチしてね！
 				</div>
-				<!-- <img height="50%" src="{% static 'images/usagi.png' %}" alt=""> -->
+				<div style="text-align: center;margin-top: 10px;">
+					<button id="test">試してみる</button>
+				</div>
 			</div>
 		</div>
 		<div class="anime">
@@ -130,7 +130,7 @@
 			/*初期位置*/
 			background-repeat: no-repeat;
 			background-size: 10%;
-			background-image: url({% static 'images/pagu.png' %});
+			background-image: url({% static 'images/pagu.gif' %});
 		}
 
 		@keyframes flowing {
