@@ -59,6 +59,7 @@ window.onload = function () {
                 scriptProcessor.disconnect();
                 rec_button.checked = false;
                 rec_button.disabled = false;
+                test_button.disabled = false;
                 // console.log('stop');
                 // console.log(chunks.length);
                 if(chunks.length == 0) return;
