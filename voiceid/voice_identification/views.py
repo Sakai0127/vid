@@ -64,7 +64,7 @@ def analyze(request:HttpRequest):
     else:
         result = None
     return JsonResponse({
-        'result':result ,
+        'result':result,
         'max_id':max_score[0],
         'max_score':max_score[1],
         'scores':dict(scores)
