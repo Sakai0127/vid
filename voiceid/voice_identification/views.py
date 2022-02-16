@@ -50,6 +50,8 @@ def analyzer(request:HttpRequest):
 def analyze(request:HttpRequest):
     file = request.FILES['audio']
     embed = get_embedding(file.read(), normalize=True)
+    if embed is None:
+        return JsonResponse({'result':None})
     scores = []
     for vv in VoiceVector.objects.all().order_by('student__name'):
         v = pickle.loads(vv.vector)
