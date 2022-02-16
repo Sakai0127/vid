@@ -20,6 +20,7 @@ window.onload = function () {
         function(stream){
             let rec_button = document.getElementById('rokuon2');
             let del_button = document.getElementById('delete-btn');
+            let test_button = document.getElementById('test');
             function onAudioProcess(e) {
                 var input = e.inputBuffer.getChannelData(0);
                 var bufferData = new Float32Array(bufferSize);
@@ -47,13 +48,13 @@ window.onload = function () {
                         }
                     },
                     success: function (response) {
-                        $('#message').show();
                         $('#message').text(response);
                         setTimeout(setText, 2000);
                         // $('#message').fadeOut(2000);
                     }
                 });
             };
+
             function onstop() {
                 scriptProcessor.disconnect();
                 rec_button.checked = false;
@@ -62,10 +63,10 @@ window.onload = function () {
                 // console.log(chunks.length);
                 if(chunks.length == 0) return;
                 send();
-            }
+            };
+
             rec_button.onchange = function(){
                 if(document.getElementById('num').value.length != 9){
-                    $('#message').show();
                     $('#message').html('学籍番号を<br>入力してください。');
                     setTimeout(setText, 2000);
                     // $('#message').fadeOut(2000);
@@ -75,6 +76,7 @@ window.onload = function () {
                 if(rec_button.checked){
                     chunks.splice(0);
                     scriptProcessor.connect(context.destination);
+                    test_button.disabled = true;
                     rec_button.disabled = true;
                     setTimeout(onstop, record_ms);
                 };
@@ -83,7 +85,6 @@ window.onload = function () {
             del_button.onclick = function () {
                 if(document.getElementById('num').value.length != 9){
                     // alert('学籍番号を入力してください。');
-                    $('#message').show();
                     $('#message').html('学籍番号を<br>入力してください。');
                     setTimeout(setText, 2000);
                     // $('#message').fadeOut(2000);
@@ -105,11 +106,51 @@ window.onload = function () {
                         }
                     },
                     success: function (response) {
-                        $('#message').show();
                         $('#message').text(response);
                         setTimeout(setText, 2000);
                     }
                 });
+            };
+
+            function test_analyze(){
+                scriptProcessor.disconnect();
+                rec_button.checked = false;
+                rec_button.disabled = false;
+                test_button.disabled = false;
+                csrf_token = getCookie("csrftoken");
+                test_button.innerHTML = '試してみる';
+                var data = new FormData();
+                var audio_data = exportWAV(chunks, sampleRate);
+                data.append('audio', audio_data);
+                $.ajax({
+                    type: "POST",
+                    url: "analyze",
+                    data: data,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function(xhr, settings) {
+                        if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                            xhr.setRequestHeader("X-CSRFToken", csrf_token);
+                        }
+                    },
+                    success: function (response) {
+                        if(response.result === null){
+                            $('#message').html('？？？？？？？？<br>？？？？？？？？');
+                        } else {
+                            $('#message').html(`${response.max_id}っぽい<br>${response.max_score}`);
+                        }
+                        setTimeout(setText, 2000);
+                    }
+                });
+            };
+
+            test_button.onclick = function () {
+                chunks.splice(0);
+                scriptProcessor.connect(context.destination);
+                rec_button.disabled = true;
+                test_button.disabled = true;
+                test_button.innerHTML = '録音中';
+                setTimeout(test_analyze, record_ms);
             };
 
             context = new AudioContext({sampleRate:sampleRate});
