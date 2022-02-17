@@ -46,7 +46,7 @@
 				<form>
 					<div class="grid">
 						<h2>学籍番号</h2>
-						<input type="text" name="id" class="example" id="num">
+						<input type="text" name="id" id="num">
 						<input value="1" class="tenKey" onclick="onTenkey('1')" type="button">
 						<input value="2" class="tenKey" onclick="onTenkey('2')" type="button">
 						<input value="3" class="tenKey" onclick="onTenkey('3')" type="button">
@@ -61,40 +61,19 @@
 						<input value="１文字消す" style="font-size: 20pt;" class="tenKey" onclick="onTenkey('BS')" type="button">
 					</div>
 				</form>
-				<style>
-					.grid {
-						display: grid;
-						grid-template-columns: repeat(3, 1fr);
-						gap: 16px;
-						margin-top: 10px;
-						align-items: center;
-					}
-
-					.example {
-						grid-column-start: 2;
-						grid-column-end: 4;
-					}
-
-					button {
-						height: 80px;
-					}
-
-					.main {
-						background-size: contain;
-						background-repeat: no-repeat;
-						background-position: 95% 34%;
-						background-size: 20%;
-						background-image: url({% static 'images/usagi.png' %});
-					}
-				</style>
 			</div>
 			<!-- テンキーここまで -->
 			<div>
 				<div class="rokuon">
-					<label class="video_play_pause">
-						<input type="checkbox" id="rokuon2">
-						<span></span>
-					</label>
+					<div>
+						<label class="video_play_pause">
+							<input type="checkbox" id="rokuon2">
+							<span></span>
+						</label>
+						<div style="text-align: center;margin-top: 10px;">
+							<button id="test" style="width: 100%;">試してみる</button>
+						</div>
+					</div>
 					<label class="form">
 						<audio src="" controls></audio><br />
 						<button type="button" id="delete-btn" class="btn" style="font-size: 20pt;">音声データを全て消す</button>
@@ -104,41 +83,12 @@
 					学籍番号を入力してから<br />
 					録音マークをタッチしてね！
 				</div>
-				<div style="text-align: center;margin-top: 10px;">
-					<button id="test">試してみる</button>
-				</div>
 			</div>
 		</div>
 		<div class="anime">
 			<div class="img"></div>
 		</div>
 	</div>
-	<style>
-		.anime {
-			width: 100%;
-			height: 100vh;
-			overflow: hidden;
-		}
-
-		.img {
-			margin: 10px 0;
-			height: 100%;
-			font-size: 2em;
-			color: #FFF;
-			animation: flowing 10s linear infinite;
-			transform: translateX(100%);
-			/*初期位置*/
-			background-repeat: no-repeat;
-			background-size: 10%;
-			background-image: url({% static 'images/pagu.gif' %});
-		}
-
-		@keyframes flowing {
-			100% {
-				transform: translateX(-100%);
-			}
-		}
-	</style>
 	<script src="{% static 'js/recorder.js' %}" type="module"></script>
 </body>
 
