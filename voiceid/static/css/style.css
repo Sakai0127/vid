@@ -5,17 +5,27 @@ body {
   font-family: 'Hachi Maru Pop', cursive;
 }
 
+/* タイトル */
 body h1 {
   text-align: center;
   font-size: 50px;
-  /* font-family: 'Hachi Maru Pop', cursive; */
   color:#000000;
   margin: 15px;
 }
 
+/* フォームラベル */
 h2 {
   text-align: center;
   font-size: 2rem;
+}
+
+/* メイン */
+.main {
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 95% 34%;
+  background-size: 20%;
+  background-image: url('../images/usagi.png');
 }
 
 .youso {
@@ -25,21 +35,12 @@ h2 {
   justify-content: space-around;
 }
 
+/* テンキー全体 */
 .key {
-  /* float: left; */
   width: 45%;
 }
 
-.rokuon {
-  height: 50%;
-  display: flex;
-  align-items: center;
-}
-
-table.keybord {
-  height: 100%;
-}
-
+/* テンキーボタンデザイン */
 .tenKey {
   font-size: 25pt;
   height: 80px;
@@ -54,39 +55,39 @@ table.keybord {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px
 }
 
-input.example {
-  font-size: 35pt;
-  /* height: 100%;
-  width: 100%; */
-}
-
-/* テンキー */
-/* input.tenKey {
-  font-size: 25pt;
-  height: 80px;
-  width: 100%;
-  font-family: 'Hachi Maru Pop', cursive;
-} */
-
-input.tenKey:active {
+.tenKey:active {
   position: relative;
   top: 5px;
 }
 
-.bangou {
-  font-size: 30px;
-  width: 160px;
-  font-family: 'Hachi Maru Pop', cursive;
+/* テンキー配置 */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 10px;
+  align-items: center;
 }
 
-td.td1{
-  /* font-size:	50pt; */
-  text-align:	center;
-  height:		120;
-  width:		30%;
-} 
+/* テンキー入力フォーム */
+#num {
+  font-size: 35pt;
+  border-radius: 1em;
+  padding: 0.2em;
+  background-image:conic-gradient(at 0% 0%, snow, white);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
 
-/* 切り替え */
+  grid-column: 2/4;
+}
+
+/* 録音ボタン */
+.rokuon {
+  height: 50%;
+  display: flex;
+  align-items: center;
+}
+
+/* 録音ボタンデザイン */
 .video_play_pause {
   display: inline-block;
   position: relative;
@@ -112,7 +113,6 @@ td.td1{
   height: 0px;
   border: 0.3em solid red;
   border-radius: 50%;
-  /* border-left: 0.5em solid currentColor; */
   box-sizing: border-box;
   content: "";
 }
@@ -120,6 +120,7 @@ td.td1{
 .video_play_pause > input:checked + span::before {
   position: absolute;
   top: 50%;
+  left: 50%;
   transform: translateX(-50%) translateY(-50%);
   width: 0.5em;
   height: 0.5em;
@@ -140,13 +141,7 @@ td.td1{
   }
 }
 
-.video_play_pause > input:checked + span::before {
-  left: 50%;
-}
-.video_play_pause > input:checked + span::after {
-  left: 60%;
-}
-
+/* 削除ボタン */
 .btn {
   height: 100px;
   font-size: 50px;
@@ -159,26 +154,16 @@ td.td1{
   background-image:conic-gradient(from -135deg at -10% center, #ffa500, #ff7715, #ff522a, #ff3f47, #ff5482, #ff69b4);
 }
 
-input[type="text"] {
-  border-radius: 1em;
-  padding: 0.2em;
-  font-family: 'Hachi Maru Pop', cursive;
-  background-image:conic-gradient(at 0% 0%, snow, white);
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-}
-audio {
-  width: 350px;
-}
-
 .form {
   display:flex;
   flex-flow: column;
 }
 
-#num {
-  font-family: 'Hachi Maru Pop', cursive;
+audio {
+  width: 350px;
 }
 
+/* 吹き出し */
 #message {
   margin-top: 3rem;
   text-align: center;
@@ -217,4 +202,35 @@ audio {
   border-left-color: #333;
   border-width: 16px;
   margin-top: -5.5px;
+}
+
+/* テストボタン */
+#test {
+  height: 80px;
+}
+
+/* パグ */
+.anime {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.img {
+  margin: 10px 0;
+  height: 100%;
+  font-size: 2em;
+  color: #FFF;
+  animation: flowing 50s linear infinite;
+  transform: translateX(100%);
+  /*初期位置*/
+  background-repeat: no-repeat;
+  background-size: 10%;
+  background-image: url('../images/pagu.gif');
+}
+
+@keyframes flowing {
+  100% {
+    transform: translateX(-100%);
+  }
 }

@@ -78,6 +78,7 @@ window.onload = function () {
                     scriptProcessor.connect(context.destination);
                     test_button.disabled = true;
                     rec_button.disabled = true;
+                    test_button.disabled = false;
                     setTimeout(onstop, record_ms);
                 };
             };
