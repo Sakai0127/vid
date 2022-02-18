@@ -1,6 +1,6 @@
 from django.core.files.uploadedfile import InMemoryUploadedFile
 from django.shortcuts import render
-from django.views.decorators.csrf import ensure_csrf_cookie
+from django.views.decorators.csrf import ensure_csrf_cookie, csrf_exempt
 from django.http import HttpResponse, HttpRequest
 from django.http.response import JsonResponse
 
@@ -9,7 +9,7 @@ import pickle
 from .models import Student, VoiceData, VoiceVector
 from .process_data import get_embedding, reload_vector
 
-THRESHOLD = 0.55
+THRESHOLD = 0.70
 
 @ensure_csrf_cookie
 def record(request:HttpRequest):
@@ -45,6 +45,7 @@ def delete(request:HttpRequest):
 def analyzer(request:HttpRequest):
     return render(request, 'voice_identification/analyzer.html')
 
+@csrf_exempt
 def analyze(request:HttpRequest):
     file = request.FILES['audio']
     embed = get_embedding(file.read(), normalize=True)

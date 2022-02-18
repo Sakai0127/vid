@@ -11,6 +11,12 @@ let scriptProcessor;
 let chunks = [];
 let text = '学籍番号を入力してから<br>録音マークをタッチしてね！';
 
+// let host = '172.16.65.27';
+let host = '127.0.0.1';
+let port = 8080;
+
+$("#top").attr("href", `http://${host}:${port}`);
+
 function setText(){
     $('#message').html(text);
 }
