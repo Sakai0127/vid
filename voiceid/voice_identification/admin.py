@@ -47,7 +47,7 @@ class VoiceDataAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj:VoiceData, form, change):
         file = request.FILES['audio']
-        embed, wav_file = get_embedding(file.read(), return_file=True)
+        embed, wav_file = get_embedding(file.read(), return_file=True, normalize=True)
         wav_file = InMemoryUploadedFile(wav_file, None, file.name, file.content_type, wav_file.tell(), None)
         obj.data=pickle.dumps(embed)
         obj.audio = wav_file
