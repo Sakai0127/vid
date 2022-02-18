@@ -141,6 +141,7 @@ window.onload = function () {
                         }
                     },
                     success: function (response) {
+                        console.log(response);
                         if(response.result === null){
                             $('#message').html('？？？？？？？？<br>？？？？？？？？');
                         } else {
