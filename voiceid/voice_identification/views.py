@@ -9,7 +9,7 @@ import pickle
 from .models import Student, VoiceData, VoiceVector
 from .process_data import get_embedding, reload_vector
 
-THRESHOLD = 0.70
+THRESHOLD = 0.68
 
 @ensure_csrf_cookie
 def record(request:HttpRequest):
