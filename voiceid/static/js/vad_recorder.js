@@ -8,6 +8,7 @@ let bufferSize = 1024;
 let context;
 let source;
 let scriptProcessor;
+let buffer = new Float32Array(bufferSize);
 let chunks = [];
 let recognizer;
 
@@ -27,6 +28,7 @@ window.onload = function () {
             source = context.createMediaStreamSource(stream);
             scriptProcessor.onaudioprocess = onAudioProcess;
             source.connect(scriptProcessor);
+            scriptProcessor.connect(context.destination);
 
             recognizer = new webkitSpeechRecognition();
             recognizer.lang = 'ja-JP';
@@ -34,9 +36,11 @@ window.onload = function () {
 
             // 認識開始
             recognizer.onspeechstart = function(){
-                scriptProcessor.connect(context.destination);
+                // scriptProcessor.connect(context.destination);
                 setTimeout(()=>recognizer.stop(), record_ms);
+                chunks.splice(0);
                 $("#state").text("認識中");
+                $('body').css('background-color', 'red');
             };
             //マッチする認識が無い
             recognizer.onnomatch = function(){
@@ -44,13 +48,15 @@ window.onload = function () {
             };
             //話し声の認識終了
             recognizer.onspeechend = function(){
-                scriptProcessor.disconnect();
+                // scriptProcessor.disconnect();
+                $('body').css('background-color', 'blue');
                 $("#state").text("停止中");
             };
             //認識が終了したときのイベント
             recognizer.onresult = function(event){
                 // 結果表示
                 var blob = exportWAV(chunks, sampleRate);
+                chunks.splice(0);
 
                 var results = event.results;
                 // var result = $('<div>', {text: `${results[0][0].transcript}:`});
@@ -69,7 +75,7 @@ window.onload = function () {
                 csrf_token = getCookie("csrftoken");
                 var data = new FormData();
                 data.append('audio', blob);
-                chunks.splice(0);
+                
                 $.ajax({
                     type: "POST",
                     url: "analyze",
